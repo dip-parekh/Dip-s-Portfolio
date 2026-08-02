@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dip Parekh | Home</title>
+    <meta name="description" content="Home page for Dip Parekh's personal portfolio." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="home" class="home-page">
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a class="logo-mark" href="home.html">dip<span>.</span></a>
+      <div class="nav-links">
+        <a class="nav-link active" href="home.html">Home</a>
+        <a class="nav-link" href="work.html">Work</a>
+        <a class="nav-link" href="about.html">About Me</a>
+        <a class="nav-link" href="contact.html">Contact Me</a>
+      </div>
+    </nav>
+
+    <main class="page-shell">
+      <section class="hero-grid">
+        <div class="hero-copy animate-in">
+          <p class="eyebrow">// full-stack developer</p>
+          <h1>Building <em>thoughtful</em> products with clean, considered code.</h1>
+          <p class="lead">
+            I create digital experiences that feel calm, reliable, and easy to use — balancing interface polish,
+            practical engineering, and business-focused problem solving from the first idea to the finished product.
+          </p>
+          <div class="hero-actions">
+            <a class="primary-link" href="work.html">View Projects</a>
+            <a class="secondary-link" href="about.html">Read my story</a>
+          </div>
+          <div class="status-pill">
+            <span class="dot"></span>
+            Currently building thoughtful digital products
+          </div>
+        </div>
+
+        <div class="hero-card animate-in">
+          <div class="code-window">
+            <div class="window-bar">
+              <div class="window-dots">
+                <span></span><span></span><span></span>
+              </div>
+              <span class="window-title">portfolio.ts</span>
+            </div>
+            <div class="code-body">
+              <pre><code><span class="ln">1</span><span class="tok-kw">const</span> <span class="tok-var">dip</span> <span class="tok-op">=</span> <span class="tok-punct">{</span>
+<span class="ln">2</span>  <span class="tok-prop">role</span><span class="tok-punct">:</span> <span class="tok-str">"Full Stack Developer"</span><span class="tok-punct">,</span>
+<span class="ln">3</span>  <span class="tok-prop">focus</span><span class="tok-punct">:</span> <span class="tok-punct">[</span><span class="tok-str">"UX"</span><span class="tok-punct">,</span> <span class="tok-str">"Performance"</span><span class="tok-punct">,</span> <span class="tok-str">"Reliability"</span><span class="tok-punct">]</span><span class="tok-punct">,</span>
+<span class="ln">4</span>  <span class="tok-prop">stack</span><span class="tok-punct">:</span> <span class="tok-punct">[</span><span class="tok-str">"PHP"</span><span class="tok-punct">,</span> <span class="tok-str">"MySQL"</span><span class="tok-punct">,</span> <span class="tok-str">"JavaScript"</span><span class="tok-punct">,</span> <span class="tok-str">"HTML/CSS"</span><span class="tok-punct">]</span><span class="tok-punct">,</span>
+<span class="ln">5</span><span class="tok-punct">}</span><span class="cursor">&nbsp;</span></code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel work-card animate-in">
+          <p class="approach-tag">// featured focus</p>
+          <h3>Designing systems that feel effortless</h3>
+          <div class="chips">
+            <span>UI Engineering</span>
+            <span>Backend logic</span>
+            <span>Product thinking</span>
+            <span>Reliable delivery</span>
+          </div>
+          <p>
+            I enjoy turning complex ideas into calm, useful experiences. The work is grounded in clarity,
+            practical decisions, and a strong sense of purpose from the first interaction onward.
+          </p>
+        </article>
+
+        <article class="panel work-card animate-in">
+          <p class="approach-tag">// capabilities</p>
+          <h3>Core strengths across the build</h3>
+          <div class="skill-list">
+            <div class="skill-row">
+              <span class="skill-label">Frontend</span>
+              <div class="bar"><i data-target="92"></i></div>
+              <span class="skill-value">92%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-label">Backend</span>
+              <div class="bar"><i data-target="88"></i></div>
+              <span class="skill-value">88%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-label">Databases</span>
+              <div class="bar"><i data-target="84"></i></div>
+              <span class="skill-value">84%</span>
+            </div>
+            <div class="skill-row">
+              <span class="skill-label">Product thinking</span>
+              <div class="bar"><i data-target="90"></i></div>
+              <span class="skill-value">90%</span>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="approach-strip">
+        <article class="panel approach-card work-card animate-in">
+          <p class="approach-tag">// approach</p>
+          <p>Product-first development with a polished, deliberate feel from wireframe to release.</p>
+        </article>
+        <article class="panel approach-card work-card animate-in">
+          <p class="approach-tag">// architecture</p>
+          <p>Clean structure and practical, scalable systems built to outlast the first version.</p>
+        </article>
+        <article class="panel approach-card work-card animate-in">
+          <p class="approach-tag">// collaboration</p>
+          <p>Thoughtful communication with teams and clients from concept through to launch.</p>
+        </article>
+      </section>
+
+      <section class="panel closing-cta work-card animate-in">
+        <h3>Ready to build something thoughtful together?</h3>
+        <p>Whether it is a new product, a business tool, or a more polished digital experience, I am happy to help shape it.</p>
+        <a class="primary-link" href="contact.html">Get in touch</a>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

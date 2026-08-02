@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dip Parekh | Contact Me</title>
+    <meta name="description" content="Get in touch with Dip Parekh." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body data-page="contact" class="contact-page">
+    <canvas id="bg-canvas" aria-hidden="true"></canvas>
+
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a class="logo-mark" href="home.html">dip<span>.</span></a>
+      <div class="nav-links">
+        <a class="nav-link" href="home.html">Home</a>
+        <a class="nav-link" href="work.html">Work</a>
+        <a class="nav-link" href="about.html">About Me</a>
+        <a class="nav-link active" href="contact.html">Contact Me</a>
+      </div>
+    </nav>
+
+    <main class="page-shell">
+      <section class="contact-layout">
+        <article class="panel contact-intro work-card animate-in">
+          <p class="eyebrow">// contact</p>
+          <h1>Let’s talk about your next idea.</h1>
+          <p>
+            Whether you’re looking for a developer for a product build, a refresh,
+            or a thoughtful freelance collaboration, I’d love to hear from you.
+          </p>
+          <div class="contact-links">
+            <a href="mailto:hello@dipparekh.com">hello@dipparekh.com</a>
+            <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </div>
+        </article>
+
+        <div class="panel form-card work-card animate-in">
+          <div class="contact-status">
+            <span class="dot"></span>
+            Open for select freelance and product collaborations
+          </div>
+          <form id="contact-form">
+            <label>
+              Name
+              <input type="text" name="name" placeholder="Your name" required />
+            </label>
+            <label>
+              Email
+              <input type="email" name="email" placeholder="you@example.com" required />
+            </label>
+            <label>
+              Message
+              <textarea name="message" rows="5" placeholder="Tell me about your project" required></textarea>
+            </label>
+            <button type="submit" class="primary-link">Send Message</button>
+          </form>
+        </div>
+      </section>
+
+      <section class="contact-strip">
+        <article class="panel work-card animate-in">
+          <p class="approach-tag">// response time</p>
+          <p>Usually within a couple of days for thoughtful project discussions.</p>
+        </article>
+        <article class="panel work-card animate-in">
+          <p class="approach-tag">// best for</p>
+          <p>Product builds, thoughtful UI work, and clean implementation support.</p>
+        </article>
+        <article class="panel work-card animate-in">
+          <p class="approach-tag">// location</p>
+          <p>Remote-friendly, collaborative, and ready for thoughtful partnerships.</p>
+        </article>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
