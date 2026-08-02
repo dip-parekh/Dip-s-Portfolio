@@ -1,3 +1,6 @@
+/* ============================================
+   CONTACT FORM
+   ============================================ */
 (function () {
   const form = document.getElementById('contact-form');
   const statusMessage = document.getElementById('form-status');
@@ -22,6 +25,9 @@
   }
 })();
 
+/* ============================================
+   IMAGE GALLERY MODAL
+   ============================================ */
 (function () {
   const trigger = document.querySelector('.gallery-trigger');
   const modal = document.getElementById('image-modal');
@@ -85,6 +91,9 @@
   });
 })();
 
+/* ============================================
+   LANDING CARD TILT
+   ============================================ */
 (function () {
   const landingCard = document.querySelector('.landing-card');
   if (!landingCard) return;
@@ -105,15 +114,210 @@
   });
 })();
 
+/* ============================================
+   THEME + ACCESSIBILITY SETTINGS
+   ============================================ */
+(function () {
+  const STORAGE_KEY = 'a11y-settings';
+  const html = document.documentElement;
+
+  const DEFAULTS = {
+    theme: '',
+    textSize: 'normal',
+    highContrast: false,
+    underlineLinks: false,
+    reduceMotion: false,
+    grayscale: false,
+    bigCursor: false,
+    readingGuide: false,
+  };
+
+  function readSettings() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return { ...DEFAULTS };
+      return { ...DEFAULTS, ...JSON.parse(raw) };
+    } catch (e) {
+      return { ...DEFAULTS };
+    }
+  }
+
+  function writeSettings(settings) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(settings));
+    } catch (e) {
+      // Ignore storage errors (e.g. private mode)
+    }
+  }
+
+  let settings = readSettings();
+
+  // Resolve default theme from OS preference if not explicitly stored
+  if (!settings.theme) {
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    settings.theme = prefersDark ? 'dark' : 'light';
+  }
+
+  function applySettings() {
+    // Theme
+    if (settings.theme) {
+      html.setAttribute('data-theme', settings.theme);
+    } else {
+      html.removeAttribute('data-theme');
+    }
+
+    // Text size
+    if (settings.textSize && settings.textSize !== 'normal') {
+      html.setAttribute('data-text-size', settings.textSize);
+    } else {
+      html.removeAttribute('data-text-size');
+    }
+
+    // Boolean toggles
+    const toggles = [
+      'highContrast',
+      'underlineLinks',
+      'reduceMotion',
+      'grayscale',
+      'bigCursor',
+      'readingGuide',
+    ];
+    toggles.forEach((name) => {
+      const attr = `data-${name.replace(/([A-Z])/g, '-$1').toLowerCase()}`;
+      if (settings[name]) {
+        html.setAttribute(attr, 'true');
+      } else {
+        html.removeAttribute(attr);
+      }
+    });
+
+    // Update UI controls
+    updateWidgetUI();
+    updateSwitchStates();
+
+    // Notify canvas + other systems
+    document.dispatchEvent(new CustomEvent('a11y:changed', { detail: settings }));
+  }
+
+  function updateSwitchStates() {
+    document.querySelectorAll('[data-switch]').forEach((control) => {
+      const key = control.dataset.switch;
+      if (typeof settings[key] === 'boolean') {
+        control.setAttribute('aria-checked', String(settings[key]));
+      }
+    });
+  }
+
+  function updateWidgetUI() {
+    // Theme options
+    document.querySelectorAll('[data-option="theme"]').forEach((option) => {
+      option.setAttribute('aria-pressed', String(option.dataset.value === settings.theme));
+    });
+    // Text size options
+    document.querySelectorAll('[data-option="textSize"]').forEach((option) => {
+      option.setAttribute('aria-pressed', String(option.dataset.value === settings.textSize));
+    });
+  }
+
+  // Store resolved theme even if it came from OS default
+  writeSettings(settings);
+  applySettings();
+
+  // Panel open/close
+  const toggle = document.querySelector('.accessibility-toggle');
+  const panel = document.querySelector('.accessibility-panel');
+  const closeBtn = document.querySelector('.a11y-close');
+
+  if (toggle && panel) {
+    toggle.addEventListener('click', () => {
+      const isOpen = panel.classList.toggle('is-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      panel.setAttribute('aria-hidden', String(!isOpen));
+    });
+
+    closeBtn && closeBtn.addEventListener('click', () => {
+      panel.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+      panel.setAttribute('aria-hidden', 'true');
+    });
+
+    document.addEventListener('click', (event) => {
+      const widget = document.querySelector('.accessibility-widget');
+      if (widget && !widget.contains(event.target)) {
+        panel.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        panel.setAttribute('aria-hidden', 'true');
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        panel.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        panel.setAttribute('aria-hidden', 'true');
+      }
+    });
+  }
+
+  // Event delegation for options + switches
+  const widget = document.querySelector('.accessibility-widget');
+  if (widget) {
+    widget.addEventListener('click', (event) => {
+      const option = event.target.closest('[data-option]');
+      if (option) {
+        const { key, value } = option.dataset;
+        settings[key] = value;
+        writeSettings(settings);
+        applySettings();
+        return;
+      }
+
+      const switchControl = event.target.closest('[data-switch]');
+      if (switchControl) {
+        const key = switchControl.dataset.switch;
+        settings[key] = !settings[key];
+        writeSettings(settings);
+        applySettings();
+        return;
+      }
+
+      const reset = event.target.closest('[data-reset]');
+      if (reset) {
+        settings = { ...DEFAULTS, theme: window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light' };
+        writeSettings(settings);
+        applySettings();
+      }
+    });
+  }
+})();
+
+/* ============================================
+   READING GUIDE
+   ============================================ */
+(function () {
+  const guide = document.querySelector('.reading-guide');
+  if (!guide) return;
+
+  document.addEventListener('mousemove', (event) => {
+    guide.style.top = `${event.clientY}px`;
+  });
+})();
+
+/* ============================================
+   PARTICLE CANVAS (theme-aware)
+   ============================================ */
 (function () {
   const canvas = document.getElementById('bg-canvas');
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   let width, height, particles;
+  let animationId = null;
+  let motionAllowed = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const accent = getComputedStyle(document.body).getPropertyValue('--accent').trim() || '#e3a63e';
+  function getCssVar(name, fallback) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback;
+  }
 
   function resize() {
     width = canvas.width = window.innerWidth;
@@ -133,8 +337,11 @@
   }
 
   function draw() {
+    const bg = getCssVar('--canvas-bg', '#0a0d12');
+    const accent = getCssVar('--accent', '#e3a63e');
+
     ctx.clearRect(0, 0, width, height);
-    ctx.fillStyle = '#0a0d12';
+    ctx.fillStyle = bg;
     ctx.fillRect(0, 0, width, height);
 
     particles.forEach((p) => {
@@ -148,26 +355,71 @@
 
       ctx.beginPath();
       ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(227, 166, 62, ${p.alpha * 0.6})`;
+      ctx.fillStyle = accent;
+      ctx.globalAlpha = p.alpha * 0.6;
       ctx.fill();
     });
+    ctx.globalAlpha = 1;
 
-    if (!prefersReducedMotion) {
-      requestAnimationFrame(draw);
+    if (motionAllowed) {
+      animationId = requestAnimationFrame(draw);
     }
   }
 
-  resize();
-  makeParticles();
-  draw();
-
-  window.addEventListener('resize', () => {
+  function start() {
+    cancelAnimationFrame(animationId);
     resize();
     makeParticles();
-    if (prefersReducedMotion) draw();
+    draw();
+  }
+
+  function setMotion(allowed) {
+    motionAllowed = allowed;
+    cancelAnimationFrame(animationId);
+    if (motionAllowed) {
+      draw();
+    } else {
+      // Draw one static frame when motion is disabled
+      ctx.clearRect(0, 0, width, height);
+      const bg = getCssVar('--canvas-bg', '#0a0d12');
+      const accent = getCssVar('--accent', '#e3a63e');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, width, height);
+      particles.forEach((p) => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = accent;
+        ctx.globalAlpha = p.alpha * 0.6;
+        ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+    }
+  }
+
+  start();
+
+  window.addEventListener('resize', start);
+
+  // React to theme/a11y changes
+  document.addEventListener('a11y:changed', (event) => {
+    const { reduceMotion } = event.detail || {};
+    setMotion(!reduceMotion);
   });
+
+  // Also react to system-level reduced-motion preference
+  const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const handleMotionChange = (event) => {
+    motionAllowed = !event.matches;
+    setMotion(motionAllowed);
+  };
+  if (mediaQuery.addEventListener) {
+    mediaQuery.addEventListener('change', handleMotionChange);
+  }
 })();
 
+/* ============================================
+   ANIMATED HERO TEXT (landing)
+   ============================================ */
 (function () {
   const target = document.querySelector('.hero-text[data-animated-text]');
   if (!target) return;
@@ -191,6 +443,9 @@
   window.setTimeout(type, 400);
 })();
 
+/* ============================================
+   STAT COUNTERS
+   ============================================ */
 (function () {
   const counters = document.querySelectorAll('.stat-value');
   if (!counters.length) return;
@@ -239,6 +494,9 @@
   counters.forEach((counter) => observer.observe(counter));
 })();
 
+/* ============================================
+   ANIMATE ON SCROLL
+   ============================================ */
 (function () {
   const targets = document.querySelectorAll('.animate-in');
   if (!targets.length) return;
@@ -258,6 +516,9 @@
   targets.forEach((el) => observer.observe(el));
 })();
 
+/* ============================================
+   SKILL BARS
+   ============================================ */
 (function () {
   const bars = document.querySelectorAll('.bar i');
   if (!bars.length) return;
@@ -277,3 +538,4 @@
 
   bars.forEach((bar) => observer.observe(bar));
 })();
+
