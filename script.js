@@ -1,12 +1,22 @@
 (function () {
   const form = document.getElementById('contact-form');
+  const statusMessage = document.getElementById('form-status');
+
+  if (statusMessage && window.location.search.includes('sent=1')) {
+    statusMessage.classList.add('is-success');
+    statusMessage.textContent = 'Thanks! Your message has been sent.';
+  }
+
   if (form) {
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
+    form.addEventListener('submit', () => {
       const submitButton = form.querySelector('button');
       if (submitButton) {
-        submitButton.textContent = 'Message ready to send';
+        submitButton.textContent = 'Sending...';
         submitButton.disabled = true;
+      }
+      if (statusMessage) {
+        statusMessage.classList.remove('is-success');
+        statusMessage.textContent = 'Please wait while your message is sent.';
       }
     });
   }
