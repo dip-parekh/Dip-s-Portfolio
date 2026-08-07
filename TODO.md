@@ -34,5 +34,5 @@
 - [x] No changes to business logic, branding, or desktop layout
 
 ## Final Verification
-- [ ] Test at 375px, 768px, 1440px widths
+- [x] Test at 375px, 768px, 1440px widths
 

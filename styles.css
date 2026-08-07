@@ -500,6 +500,7 @@ a {
   -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--surface-3);
+  overflow-x: clip;
 }
 
 .logo-mark {
@@ -643,11 +644,12 @@ pre {
     right: 0;
     height: 100vh;
     min-height: 100dvh;
-    width: min(78vw, 320px);
+    width: min(84vw, 320px);
+    max-width: 320px;
     flex-direction: column;
     justify-content: flex-start;
     gap: 8px;
-    padding: 96px 28px 40px;
+    padding: 96px 20px 40px;
     margin: 0;
     background: var(--glass-solid);
     border-left: 1px solid var(--line-strong);
@@ -663,7 +665,7 @@ pre {
     overflow: hidden;
   }
   .nav-link {
-    font-size: 1.05rem;
+    font-size: 1rem;
     padding: 14px 10px;
     border-radius: 10px;
     transition: background 0.2s var(--ease), color 0.2s var(--ease);
@@ -1638,6 +1640,12 @@ textarea {
   color: var(--text-1);
   background: var(--input-bg);
   font: inherit;
+  font-size: 16px;
+}
+
+textarea {
+  min-height: 140px;
+  resize: vertical;
 }
 
 input:focus,
@@ -1779,6 +1787,19 @@ input[type="button"] {
   .page-shell {
     padding-left: 16px;
     padding-right: 16px;
+  }
+  .hero-grid,
+  .content-grid,
+  .work-hero-grid,
+  .about-layout,
+  .contact-layout,
+  .project-grid,
+  .values-grid,
+  .secondary-grid {
+    min-width: 0;
+  }
+  .a11y-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .panel,
   .work-card,
