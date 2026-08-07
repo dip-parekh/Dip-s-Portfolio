@@ -1,4 +1,40 @@
 /* ============================================
+   MOBILE NAVIGATION
+   ============================================ */
+(function () {
+  const toggle = document.querySelector('.nav-toggle');
+  const overlay = document.querySelector('.nav-overlay');
+  const links = document.querySelectorAll('.nav-link');
+  if (!toggle) return;
+
+  const setMenu = (open) => {
+    document.body.classList.toggle('menu-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (overlay) overlay.classList.toggle('is-active', open);
+  };
+
+  toggle.addEventListener('click', () => {
+    setMenu(!document.body.classList.contains('menu-open'));
+  });
+
+  if (overlay) {
+    overlay.addEventListener('click', () => setMenu(false));
+  }
+
+  links.forEach((link) => link.addEventListener('click', () => setMenu(false)));
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') setMenu(false);
+  });
+
+  // Reset menu state when resizing to desktop widths
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 768) setMenu(false);
+  });
+})();
+
+/* ============================================
    CONTACT FORM
    ============================================ */
 (function () {

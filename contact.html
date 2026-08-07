@@ -18,15 +18,19 @@
     <canvas id="bg-canvas" aria-hidden="true"></canvas>
     <div class="reading-guide" aria-hidden="true"></div>
 
-    <nav class="site-nav" aria-label="Primary navigation">
+<nav class="site-nav" aria-label="Primary navigation">
       <a class="logo-mark" href="home.html">dip<span>.</span></a>
-      <div class="nav-links">
+      <div class="nav-links" id="nav-links">
         <a class="nav-link" href="home.html">Home</a>
         <a class="nav-link" href="work.html">Work</a>
         <a class="nav-link" href="about.html">About Me</a>
         <a class="nav-link active" href="contact.html">Contact Me</a>
       </div>
+      <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
     </nav>
+    <div class="nav-overlay" aria-hidden="true"></div>
 
     <main class="page-shell" id="main-content">
       <section class="contact-layout">

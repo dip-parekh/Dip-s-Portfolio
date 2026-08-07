@@ -1,16 +1,38 @@
-# TODO — Dark/Light Theme + Accessibility Widget
+# Responsive Optimization - Progress Tracker
 
-- [x] Gather context (all HTML pages, styles.css, script.js)
-- [x] Confirm plan with user
-- [x] Rewrite `styles.css` — tokenize colors for dark/light theme + accessibility styles
-- [x] Update `script.js` — theme handling, a11y widget logic, canvas theme + reduced motion
-- [x] Add accessibility widget + skip link to `index.html`
-- [x] Add accessibility widget + skip link to `home.html`
-- [x] Add accessibility widget + skip link to `work.html`
-- [x] Add accessibility widget + skip link to `about.html`
-- [x] Add accessibility widget + skip link to `contact.html`
-- [ ] Verify result
+## Phase A — Mobile Navigation
+- [x] Add hamburger menu + overlay to all 4 inner pages (home/about/work/contact)
+- [x] Add JS for open/close, outside-click, Escape, prevent body scroll, keyboard nav
+- [x] Add CSS for animated menu, large touch targets
 
+## Phase B — Global Layout / Overflow Fixes
+- [ ] Change `.landing-grid` aside to `minmax(0, 0.9fr)` to prevent overflow
+- [ ] Refactor `.skill-row` to flexible sizing
+- [ ] Refactor `.image-modal-stage` to responsive `min-height`
+- [ ] Add `overflow-wrap`/`hyphens` and `max-width:100%` guards
+- [ ] Normalize `.landing-card` tilt on mobile
 
-</content>
+## Phase C — Breakpoints & Grids
+- [ ] Add breakpoints at 1024px, 768px, 640px, 480px, 375px
+- [ ] Ensure grids collapse: hero → 1 col, project-grid → 1 col, values-grid → 1 col
+
+## Phase D — Typography
+- [ ] Convert remaining fixed font sizes to responsive `clamp()`
+- [ ] Ensure headings scale smoothly, no clipping
+
+## Phase E — Images & Cards
+- [ ] Ensure all images `max-width:100%`, `object-fit`, aspect ratio preserved
+- [ ] Cards equal heights, responsive padding
+
+## Phase F — Forms, Buttons, Modals
+- [ ] Full-width inputs, stacked buttons, min 44px touch targets
+- [ ] Responsive modal (centered, scrollable, max-height)
+
+## Phase G — Accessibility & Performance
+- [ ] Preserve existing a11y widget, focus states, semantic HTML
+- [ ] Respect `prefers-reduced-motion`
+- [ ] No changes to business logic, branding, or desktop layout
+
+## Final Verification
+- [ ] Test at 375px, 768px, 1440px widths
 
