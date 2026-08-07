@@ -1651,6 +1651,25 @@ button {
   font: inherit;
 }
 
+/* Ensure adequate touch targets for interactive elements */
+button,
+[role="button"],
+input[type="submit"],
+input[type="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+#contact-form .primary-link {
+  width: 100%;
+  padding: 14px 24px;
+  min-height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
 .form-status {
   margin-top: 4px;
   color: var(--text-2);
